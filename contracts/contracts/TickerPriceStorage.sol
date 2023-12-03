@@ -35,8 +35,8 @@ contract TickerPriceStorage is ITickerPriceStorage {
     }
 
     /*
-    * @dev Pure function which calculates the minimum price difference needed to update the current price
-    * based on the current on-chain price in storage.
+    * @notice Pure function which calculates the minimum price difference needed to update the current price
+    * @dev The price is based on the current on-chain price in storage.
     *
     * @param price - Current on-chain price in the contract storage
     *
