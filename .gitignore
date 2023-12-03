@@ -1,0 +1,14 @@
+# General
+.idea
+.env
+
+# Node/npm
+node_modules/
+
+# Hardhat / Solidity
+contracts/cache
+contracts/artifacts
+contracts/coverage
+contracts/coverage.json
+contracts/typechain
+contracts/typechain-types
