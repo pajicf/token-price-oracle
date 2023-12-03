@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-contract ITickerPriceStorage {
+interface ITickerPriceStorage {
     event TickerPriceUpdated(string indexed ticker, uint newPrice);
 
     /**
@@ -15,5 +15,5 @@ contract ITickerPriceStorage {
     *
     * Emits a {TickerPriceUpdated} event
     */
-    function set(string ticker, uint price) external;
+    function set(string calldata ticker, uint price) external;
 }
