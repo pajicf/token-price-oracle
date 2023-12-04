@@ -7,7 +7,7 @@ contract TickerPriceStorage is ITickerPriceStorage {
     uint private constant MAX_BPS = 10_000; // 100% or 10k basis points
     uint private constant MIN_PRICE_DELTA_PERCENTAGE = 200; // 2% or 200 basis points
 
-    mapping(string => uint) private _tickerPriceMap;
+    mapping(string => uint) internal _tickerPriceMap;
 
     // @inheritdoc ITickerPriceStorage
     function set(string calldata ticker, uint price) external {
