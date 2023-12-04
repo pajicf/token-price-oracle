@@ -1,5 +1,6 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
+import 'solidity-docgen';
 
 const config: HardhatUserConfig = {
   /*
@@ -23,6 +24,12 @@ const config: HardhatUserConfig = {
       },
       evmVersion: "london"
     }
+  },
+  docgen: {
+    templates: "./docs-generator-templates",
+    outputDir: "./docs",
+    pages: "files",
+    exclude: ["./test"]
   },
 };
 
