@@ -22,9 +22,9 @@ contract TickerUSDFeedRegistry is ITickerUSDFeedRegistry {
     }
 
     // @inheritdoc ITickerUSDFeedRegistry
-    function addNewTicker(string calldata ticker, address feedAddress) external onlyOwner {
+    function setTickerFeed(string calldata ticker, address feedAddress) external onlyOwner {
         _tickerFeedMap[ticker] = feedAddress;
 
-        emit NewTickerAdded(ticker, feedAddress);
+        emit TickerFeedUpdated(ticker, feedAddress);
     }
 }

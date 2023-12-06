@@ -28,8 +28,8 @@ export const tickerPriceStorageFixture = async (): Promise<TickerPriceStorageFix
   const ethChainlinkFeed = await chainlinkPriceFeedFactory.deploy(ethFeedMockUSDPrice);
 
   const tickerUSDFeedRegistry = await tickerUSDFeedRegistryFactory.connect(owner).deploy();
-  tickerUSDFeedRegistry.connect(owner).addNewTicker(btcTickerSymbol, await btcChainlinkFeed.getAddress());
-  tickerUSDFeedRegistry.connect(owner).addNewTicker(ethTickerSymbol, await ethChainlinkFeed.getAddress());
+  tickerUSDFeedRegistry.connect(owner).setTickerFeed(btcTickerSymbol, await btcChainlinkFeed.getAddress());
+  tickerUSDFeedRegistry.connect(owner).setTickerFeed(ethTickerSymbol, await ethChainlinkFeed.getAddress());
 
   const tickerPriceStorage =
     await tickerPriceStorageFactory.connect(owner).deploy(await tickerUSDFeedRegistry.getAddress());

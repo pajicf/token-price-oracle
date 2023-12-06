@@ -20,21 +20,21 @@ describe("TickerUSDFeedRegistry", () => {
       const [, otherAddress] = await ethers.getSigners();
       expect(owner.address).to.not.equal(otherAddress.address);
 
-      await expect(tickerUSDFeedRegistry.connect(otherAddress).addNewTicker(exampleTickerSymbol, exampleFeedAddress))
+      await expect(tickerUSDFeedRegistry.connect(otherAddress).setTickerFeed(exampleTickerSymbol, exampleFeedAddress))
         .to.be.revertedWith("TickerUSDFeedRegistry: Only owner is allowed to call this function");
     });
 
-    const NewTickerAddedEventName = "NewTickerAdded";
-    it(`should emit the ${NewTickerAddedEventName} event`, async () => {
+    const TickerFeedUpdatedEventName = "TickerFeedUpdated";
+    it(`should emit the ${TickerFeedUpdatedEventName} event`, async () => {
       const { tickerUSDFeedRegistry, owner } = fixture;
 
-      await expect(tickerUSDFeedRegistry.connect(owner).addNewTicker(exampleTickerSymbol, exampleFeedAddress))
-        .to.emit(tickerUSDFeedRegistry, NewTickerAddedEventName).withArgs(exampleTickerSymbol, exampleFeedAddress);
+      await expect(tickerUSDFeedRegistry.connect(owner).setTickerFeed(exampleTickerSymbol, exampleFeedAddress))
+        .to.emit(tickerUSDFeedRegistry, TickerFeedUpdatedEventName).withArgs(exampleTickerSymbol, exampleFeedAddress);
     })
 
     it("should be able to retrieve it afterwards", async () => {
       const { tickerUSDFeedRegistry, owner } = fixture;
-      await tickerUSDFeedRegistry.connect(owner).addNewTicker(exampleTickerSymbol, exampleFeedAddress);
+      await tickerUSDFeedRegistry.connect(owner).setTickerFeed(exampleTickerSymbol, exampleFeedAddress);
 
       const onchainFeedAddress = await tickerUSDFeedRegistry.getTickerFeed(exampleTickerSymbol);
       expect(onchainFeedAddress).to.be.equal(exampleFeedAddress);
