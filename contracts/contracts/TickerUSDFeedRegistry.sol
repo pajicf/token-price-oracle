@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "./interfaces/ITickerUSDFeedRegistry.sol";
+import { ITickerUSDFeedRegistry } from "./interfaces/ITickerUSDFeedRegistry.sol";
 
 contract TickerUSDFeedRegistry is ITickerUSDFeedRegistry {
     address internal _owner;
@@ -12,7 +12,7 @@ contract TickerUSDFeedRegistry is ITickerUSDFeedRegistry {
     }
 
     modifier onlyOwner() {
-        require(msg.sender == _owner, "TickerUSDFeedRegistry: Only owner is allowed to call this function");
+        require(msg.sender == _owner, "TickerUSDFeedRegistry: Only owner is allowed");
         _;
     }
 

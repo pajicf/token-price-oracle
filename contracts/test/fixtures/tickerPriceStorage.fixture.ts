@@ -1,5 +1,5 @@
-import {TestTickerPriceStorage} from "../../typechain-types";
-import {ethers} from "hardhat";
+import { TestTickerPriceStorage } from "../../typechain-types";
+import { ethers } from "hardhat";
 
 export type TickerPriceStorageFixture = {
   tickerPriceStorage: TestTickerPriceStorage,
@@ -7,7 +7,7 @@ export type TickerPriceStorageFixture = {
     tokenTicker: string;
     tokenPrice: number;
   }[]
-}
+};
 
 export const tickerPriceStorageFixture = async (): Promise<TickerPriceStorageFixture> => {
   const [ owner ] = await ethers.getSigners();
@@ -40,5 +40,5 @@ export const tickerPriceStorageFixture = async (): Promise<TickerPriceStorageFix
       { tokenTicker: btcTickerSymbol, tokenPrice: btcFeedMockUSDPrice },
       { tokenTicker: ethTickerSymbol, tokenPrice: ethFeedMockUSDPrice }
     ]
-  }
-}
+  };
+};

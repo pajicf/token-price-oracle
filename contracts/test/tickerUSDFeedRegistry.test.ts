@@ -1,7 +1,7 @@
-import {loadFixture} from "@nomicfoundation/hardhat-network-helpers";
-import {TickerUSDFeedRegistryFixture, tickerUSDFeedRegistryFixture} from "./fixtures/tickerUSDFeedRegistry.fixture";
-import {ethers} from "hardhat";
-import {expect} from "chai";
+import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
+import { TickerUSDFeedRegistryFixture, tickerUSDFeedRegistryFixture } from "./fixtures/tickerUSDFeedRegistry.fixture";
+import { ethers } from "hardhat";
+import { expect } from "chai";
 
 describe("TickerUSDFeedRegistry", () => {
   let fixture: TickerUSDFeedRegistryFixture;
@@ -12,7 +12,7 @@ describe("TickerUSDFeedRegistry", () => {
 
   describe("Adding a new feed into the registry", () => {
     const exampleTickerSymbol = "ETH";
-    const exampleFeedAddress = "0x6Db2485A3BFF699840aDD5c2F9d103a72d4D4dD7"
+    const exampleFeedAddress = "0x6Db2485A3BFF699840aDD5c2F9d103a72d4D4dD7";
 
     it("should revert if not performed by the owner", async () => {
       const { tickerUSDFeedRegistry, owner } = fixture;
@@ -30,7 +30,7 @@ describe("TickerUSDFeedRegistry", () => {
 
       await expect(tickerUSDFeedRegistry.connect(owner).setTickerFeed(exampleTickerSymbol, exampleFeedAddress))
         .to.emit(tickerUSDFeedRegistry, TickerFeedUpdatedEventName).withArgs(exampleTickerSymbol, exampleFeedAddress);
-    })
+    });
 
     it("should be able to retrieve it afterwards", async () => {
       const { tickerUSDFeedRegistry, owner } = fixture;
@@ -38,6 +38,6 @@ describe("TickerUSDFeedRegistry", () => {
 
       const onchainFeedAddress = await tickerUSDFeedRegistry.getTickerFeed(exampleTickerSymbol);
       expect(onchainFeedAddress).to.be.equal(exampleFeedAddress);
-    })
+    });
   });
-})
+});
