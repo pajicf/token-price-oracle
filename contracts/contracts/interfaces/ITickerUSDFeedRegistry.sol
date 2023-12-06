@@ -5,7 +5,7 @@ interface ITickerUSDFeedRegistry {
     /*
     * @notice Emitter when a new ticker and its corresponding feed are added
     */
-    event NewTickerAdded(string ticker, string feedAddress);
+    event NewTickerAdded(string ticker, address feedAddress);
 
     /*
     * @notice Function for fetching the Chainlink USD Price feed address for a given ticker

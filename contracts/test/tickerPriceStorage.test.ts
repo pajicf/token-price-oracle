@@ -61,7 +61,7 @@ describe("TickerPriceStorage", () => {
       })
     })
 
-    describe("setting the initial price", () => {
+    describe("Setting the initial price", () => {
       it("should be able to set a price without considering the min price delta", async () => {
         const { tickerPriceStorage } = fixture;
 
@@ -75,6 +75,15 @@ describe("TickerPriceStorage", () => {
         onChainPrice = await tickerPriceStorage.getCurrentPriceForTicker(ethTickerSymbol);
         expect(onChainPrice).to.be.equal(newPrice);
       });
+
+      it("should emit the TickerPriceUpdated event", async () => {
+        const { tickerPriceStorage } = fixture;
+
+        const newPrice = 0.01 * usdDecimalMultiplier;
+
+        await expect(tickerPriceStorage.set(ethTickerSymbol, newPrice))
+          .to.emit(tickerPriceStorage, "TickerPriceUpdated").withArgs(ethTickerSymbol, newPrice);
+      })
     })
   })
 })
