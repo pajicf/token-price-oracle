@@ -7,7 +7,8 @@
     "test": "hardhat test",
     "docs:generate": "hardhat docgen",
     "compile": "hardhat compile",
-    "build": "yarn compile && yarn docs:generate"
+    "build": "yarn compile && yarn docs:generate",
+    "lint:ts": "tslint --project package.json"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
@@ -27,6 +28,7 @@
     "solidity-coverage": "^0.8.0",
     "solidity-docgen": "^0.6.0-beta.36",
     "ts-node": ">=8.0.0",
+    "tslint": "^6.1.3",
     "typechain": "^8.3.0",
     "typescript": ">=4.5.0"
   }

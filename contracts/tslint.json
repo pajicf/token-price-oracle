@@ -1,0 +1,30 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "rules": {
+    "no-namespace": false,
+    "no-empty-interface": false,
+    "semicolon": true,
+    "quotemark": [true, "double"],
+    "whitespace": [true, "check-module", "check-branch"],
+    "curly": [true, "ignore-same-line"],
+    "no-console": false,
+    "jsx-no-multiline-js": false,
+    "jsx-wrap-multiline": false,
+    "jsx-no-lambda": false,
+    "max-classes-per-file": false,
+    "prefer-for-of": false,
+    "no-bitwise": false,
+    "array-type": false,
+    "no-string-literal": true
+  },
+  "linterOptions": {
+    "exclude": [
+      "node_modules/**/*",
+      "docs-generator-templates/**/*",
+      "typechain-types/**/*"
+    ]
+  }
+}
