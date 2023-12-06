@@ -9,7 +9,9 @@
     "compile": "hardhat compile",
     "build": "yarn compile && yarn docs:generate",
     "lint:ts": "tslint --project package.json",
-    "lint:ts:fix": "yarn lint:ts --fix"
+    "lint:ts:fix": "yarn lint:ts --fix",
+    "lint:sol": "solhint 'contracts/**/*.sol'",
+    "lint": "yarn lint:ts && yarn lint:sol"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
@@ -26,6 +28,7 @@
     "ethers": "^6.4.0",
     "hardhat": "^2.19.1",
     "hardhat-gas-reporter": "^1.0.8",
+    "solhint": "^4.0.0",
     "solidity-coverage": "^0.8.0",
     "solidity-docgen": "^0.6.0-beta.36",
     "ts-node": ">=8.0.0",
