@@ -32,7 +32,7 @@ describe("TickerPriceStorage", () => {
         const priceToSet = 100 * usdDecimalMultiplier;
 
         await expect(tickerPriceStorage.set(emptyTickerSymbol, priceToSet))
-          .to.be.revertedWith("TickerPriceStorage: Param ticker can't be an empty value")
+          .to.be.revertedWith("TickerPriceStorage: Param ticker can't be an empty value");
       });
 
       it("should revert if trying to set the current on-chain price", async () => {
@@ -43,23 +43,40 @@ describe("TickerPriceStorage", () => {
         await tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice);
 
         await expect(tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice))
-          .to.be.revertedWith("TickerPriceStorage: New price must not equal the current price")
-      })
+          .to.be.revertedWith("TickerPriceStorage: New price must not equal the current price");
+      });
 
-      it("should revert if trying to set price larger than the min price delta", async () => {
+      it("should revert if trying to set price smaller than the min price delta", async () => {
         const { tickerPriceStorage, tokens } = fixture;
         const tokenTicker = tokens[0].tokenTicker
         const tokenChainlinkPrice = tokens[0].tokenPrice;
 
         await tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice);
+        const currentPrice = tokenChainlinkPrice;
 
         const minPriceDeltaPercentage = 2;
         const minPriceDelta = Math.trunc((tokenChainlinkPrice * minPriceDeltaPercentage) / 100);
-        const newPrice = tokenChainlinkPrice + minPriceDelta - 1;
+        const newPrice = currentPrice + minPriceDelta - 1;
 
         await expect(tickerPriceStorage.set(tokenTicker, newPrice))
-          .to.be.revertedWith("TickerPriceStorage: New price must be larger than the minimum delta")
-      })
+          .to.be.revertedWith("TickerPriceStorage: New price must be larger than the minimum delta");
+      });
+
+      it("should revert if trying to set price larger than the max price delta", async () => {
+        const { tickerPriceStorage, tokens } = fixture;
+        const tokenTicker = tokens[0].tokenTicker
+        const tokenChainlinkPrice = tokens[0].tokenPrice;
+
+        await tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice);
+        const currentPrice = tokenChainlinkPrice;
+
+        const maxPriceDeltaPercentage = 20;
+        const maxPriceDelta = Math.trunc((tokenChainlinkPrice * maxPriceDeltaPercentage) / 100);
+        const newPrice = currentPrice + maxPriceDelta + 1;
+
+        await expect(tickerPriceStorage.set(tokenTicker, newPrice))
+          .to.be.revertedWith("TickerPriceStorage: New price must be smaller than the maximum delta");
+      });
     })
 
     describe("Setting the initial price", () => {
@@ -84,7 +101,7 @@ describe("TickerPriceStorage", () => {
 
         await expect(tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice))
           .to.emit(tickerPriceStorage, "TickerPriceUpdated").withArgs(tokenTicker, tokenChainlinkPrice);
-      })
+      });
     })
   })
 })

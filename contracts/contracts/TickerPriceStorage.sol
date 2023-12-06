@@ -47,7 +47,7 @@ contract TickerPriceStorage is ITickerPriceStorage {
             priceDelta = chainlinkPrice - price;
         }
 
-        require(priceDelta <= maxPriceDelta, "TickerPriceStorage: New price must be lower than the maximum delta");
+        require(priceDelta <= maxPriceDelta, "TickerPriceStorage: New price must be smaller than the maximum delta");
 
         _tickerPriceMap[ticker] = price;
         emit TickerPriceUpdated(ticker, price);
