@@ -94,13 +94,14 @@ describe("TickerPriceStorage", () => {
         expect(onChainPrice).to.be.equal(tokenChainlinkPrice);
       });
 
-      it("should emit the TickerPriceUpdated event", async () => {
+      const TickerPriceUpdatedEventName = "TickerPriceUpdated";
+      it(`should emit the ${TickerPriceUpdatedEventName} event`, async () => {
         const { tickerPriceStorage, tokens } = fixture;
         const tokenTicker = tokens[0].tokenTicker
         const tokenChainlinkPrice = tokens[0].tokenPrice;
 
         await expect(tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice))
-          .to.emit(tickerPriceStorage, "TickerPriceUpdated").withArgs(tokenTicker, tokenChainlinkPrice);
+          .to.emit(tickerPriceStorage, TickerPriceUpdatedEventName).withArgs(tokenTicker, tokenChainlinkPrice);
       });
     })
   })

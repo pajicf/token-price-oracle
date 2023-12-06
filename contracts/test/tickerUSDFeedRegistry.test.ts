@@ -24,11 +24,12 @@ describe("TickerUSDFeedRegistry", () => {
         .to.be.revertedWith("TickerUSDFeedRegistry: Only owner is allowed to call this function");
     });
 
-    it("should emit event after adding", async () => {
+    const NewTickerAddedEventName = "NewTickerAdded";
+    it(`should emit the ${NewTickerAddedEventName} event`, async () => {
       const { tickerUSDFeedRegistry, owner } = fixture;
 
       await expect(tickerUSDFeedRegistry.connect(owner).addNewTicker(exampleTickerSymbol, exampleFeedAddress))
-        .to.emit(tickerUSDFeedRegistry, "NewTickerAdded").withArgs(exampleTickerSymbol, exampleFeedAddress);
+        .to.emit(tickerUSDFeedRegistry, NewTickerAddedEventName).withArgs(exampleTickerSymbol, exampleFeedAddress);
     })
 
     it("should be able to retrieve it afterwards", async () => {
