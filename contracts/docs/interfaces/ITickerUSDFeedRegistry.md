@@ -2,10 +2,10 @@
 
 ## ITickerUSDFeedRegistry
 
-### NewTickerAdded
+### TickerFeedUpdated
 
 ```solidity
-event NewTickerAdded(string ticker, address feedAddress)
+event TickerFeedUpdated(string ticker, address feedAddress)
 ```
 
 Emitter when a new ticker and its corresponding feed are added
@@ -30,10 +30,10 @@ Function for fetching the Chainlink USD Price feed address for a given ticker
 | ---- | ---- | ----------- |
 | feedAddress | address | - Address of the Ticker<>USD Chainlink price feed |
 
-### addNewTicker
+### setTickerFeed
 
 ```solidity
-function addNewTicker(string ticker, address feedAddress) external
+function setTickerFeed(string ticker, address feedAddress) external
 ```
 
 Function for adding new ticker and its corresponding feed address to the registry
@@ -46,5 +46,5 @@ Function for adding new ticker and its corresponding feed address to the registr
 | feedAddress | address | - Address of the Ticker<>USD Chainlink price feed |
 
 #### 📅 Events
-* Emits a `NewTickerAdded` event
+* Emits a `TickerFeedUpdated` event
 

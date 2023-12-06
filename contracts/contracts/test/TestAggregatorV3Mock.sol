@@ -4,25 +4,25 @@ pragma solidity ^0.8.19;
 import { AggregatorV3Interface } from "../interfaces/IAggregatorV3Interface.sol";
 
 contract TestAggregatorV3Mock is AggregatorV3Interface {
-    int256 immutable internal MOCK_PRICE;
-    uint8 constant internal MOCK_DECIMALS = 8;
-    string constant internal MOCK_DESCRIPTION = "";
-    uint256 constant internal MOCK_VERSION = 1;
+    int256 immutable internal _mockPrice;
+    uint8 internal _mockDecimals = 8;
+    string internal _mockDescription = "";
+    uint256 internal _mockVersion = 1;
 
     constructor(int mockPrice) {
-        MOCK_PRICE = mockPrice;
+        _mockPrice = mockPrice;
     }
 
     function decimals() external view returns (uint8) {
-        return MOCK_DECIMALS;
+        return _mockDecimals;
     }
 
     function description() external view returns (string memory) {
-        return MOCK_DESCRIPTION;
+        return _mockDescription;
     }
 
     function version() external view returns (uint256) {
-        return MOCK_VERSION;
+        return _mockVersion;
     }
 
     function latestRoundData() external view
@@ -31,7 +31,7 @@ contract TestAggregatorV3Mock is AggregatorV3Interface {
 
         return (
             mockRoundId,
-            MOCK_PRICE,
+            _mockPrice,
             block.timestamp - 1000,
             block.timestamp,
             mockRoundId - 1
