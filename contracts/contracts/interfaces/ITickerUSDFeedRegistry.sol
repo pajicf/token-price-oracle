@@ -2,12 +2,12 @@
 pragma solidity ^0.8.19;
 
 interface ITickerUSDFeedRegistry {
-    /*
+    /**
     * @notice Emitter when a new ticker and its corresponding feed are added
     */
     event NewTickerAdded(string ticker, address feedAddress);
 
-    /*
+    /**
     * @notice Function for fetching the Chainlink USD Price feed address for a given ticker
     *
     * @param ticker - The ticker symbol
@@ -16,7 +16,7 @@ interface ITickerUSDFeedRegistry {
     */
     function getTickerFeed(string calldata ticker) external view returns(address);
 
-    /*
+    /**
     * @notice Function for adding new ticker and its corresponding feed address to the registry
     *
     * @param ticker - The ticker symbol
