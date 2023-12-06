@@ -5,7 +5,6 @@ import {expect} from "chai";
 describe("TickerPriceStorage", () => {
   let fixture: TickerPriceStorageFixture;
   const usdDecimalMultiplier = 10**8;
-  const ethTickerSymbol = "ETH";
 
   beforeEach(async () => {
     fixture = await loadFixture(tickerPriceStorageFixture);
@@ -14,17 +13,17 @@ describe("TickerPriceStorage", () => {
   describe("Updating the ticker price", () => {
     describe("setting the ticker price", () => {
       it("should be able to set a different price using the set function", async () => {
-        const { tickerPriceStorage } = fixture;
+        const { tickerPriceStorage, tokens } = fixture;
+        const tokenTicker = tokens[0].tokenTicker;
+        const tokenChainlinkPrice = tokens[0].tokenPrice;
 
+        const oldPrice = await tickerPriceStorage.getCurrentPriceForTicker(tokenTicker);
 
-        const oldPrice = await tickerPriceStorage.getCurrentPriceForTicker(ethTickerSymbol);
-        const priceToSet = 100 * usdDecimalMultiplier;
-
-        await tickerPriceStorage.set(ethTickerSymbol, priceToSet);
-        const newOnchainPrice = await tickerPriceStorage.getCurrentPriceForTicker(ethTickerSymbol);
+        await tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice);
+        const newOnchainPrice = await tickerPriceStorage.getCurrentPriceForTicker(tokenTicker);
 
         expect(newOnchainPrice).to.not.equal(oldPrice);
-        expect(newOnchainPrice).to.be.equal(priceToSet);
+        expect(newOnchainPrice).to.be.equal(tokenChainlinkPrice);
       });
 
       it("should revert if no ticker provided", async () => {
@@ -33,47 +32,76 @@ describe("TickerPriceStorage", () => {
         const priceToSet = 100 * usdDecimalMultiplier;
 
         await expect(tickerPriceStorage.set(emptyTickerSymbol, priceToSet))
-          .to.be.revertedWith("TickerPriceStorage: Param ticker can't be an empty value")
+          .to.be.revertedWith("TickerPriceStorage: Param ticker can't be an empty value");
       });
 
       it("should revert if trying to set the current on-chain price", async () => {
-        const { tickerPriceStorage } = fixture;
+        const { tickerPriceStorage, tokens } = fixture;
+        const tokenTicker = tokens[0].tokenTicker
+        const tokenChainlinkPrice = tokens[0].tokenPrice;
 
-        const priceToSet = 100 * usdDecimalMultiplier;
-        await tickerPriceStorage.set(ethTickerSymbol, priceToSet);
+        await tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice);
 
-        await expect(tickerPriceStorage.set(ethTickerSymbol, priceToSet))
-          .to.be.revertedWith("TickerPriceStorage: New price must not equal the current price")
-      })
+        await expect(tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice))
+          .to.be.revertedWith("TickerPriceStorage: New price must not equal the current price");
+      });
 
-      it("should revert if trying to set price larger than the min price delta", async () => {
-        const { tickerPriceStorage } = fixture;
+      it("should revert if trying to set price smaller than the min price delta", async () => {
+        const { tickerPriceStorage, tokens } = fixture;
+        const tokenTicker = tokens[0].tokenTicker
+        const tokenChainlinkPrice = tokens[0].tokenPrice;
 
-        const priceToSet = 100 * usdDecimalMultiplier;
-        await tickerPriceStorage.set(ethTickerSymbol, priceToSet);
+        await tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice);
+        const currentPrice = tokenChainlinkPrice;
 
         const minPriceDeltaPercentage = 2;
-        const minPriceDelta = Math.trunc((priceToSet * minPriceDeltaPercentage) / 100);
-        const newPrice = priceToSet + minPriceDelta - 1;
+        const minPriceDelta = Math.trunc((tokenChainlinkPrice * minPriceDeltaPercentage) / 100);
+        const newPrice = currentPrice + minPriceDelta - 1;
 
-        await expect(tickerPriceStorage.set(ethTickerSymbol, newPrice))
-          .to.be.revertedWith("TickerPriceStorage: New price must be larger than the minimum delta")
-      })
+        await expect(tickerPriceStorage.set(tokenTicker, newPrice))
+          .to.be.revertedWith("TickerPriceStorage: New price must be larger than the minimum delta");
+      });
+
+      it("should revert if trying to set price larger than the max price delta", async () => {
+        const { tickerPriceStorage, tokens } = fixture;
+        const tokenTicker = tokens[0].tokenTicker
+        const tokenChainlinkPrice = tokens[0].tokenPrice;
+
+        await tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice);
+        const currentPrice = tokenChainlinkPrice;
+
+        const maxPriceDeltaPercentage = 20;
+        const maxPriceDelta = Math.trunc((tokenChainlinkPrice * maxPriceDeltaPercentage) / 100);
+        const newPrice = currentPrice + maxPriceDelta + 1;
+
+        await expect(tickerPriceStorage.set(tokenTicker, newPrice))
+          .to.be.revertedWith("TickerPriceStorage: New price must be smaller than the maximum delta");
+      });
     })
 
-    describe("setting the initial price", () => {
+    describe("Setting the initial price", () => {
       it("should be able to set a price without considering the min price delta", async () => {
-        const { tickerPriceStorage } = fixture;
+        const { tickerPriceStorage, tokens } = fixture;
+        const tokenTicker = tokens[0].tokenTicker
+        const tokenChainlinkPrice = tokens[0].tokenPrice;
 
-        const newPrice = 0.01 * usdDecimalMultiplier;
-
-        let onChainPrice = await tickerPriceStorage.getCurrentPriceForTicker(ethTickerSymbol);
+        let onChainPrice = await tickerPriceStorage.getCurrentPriceForTicker(tokenTicker);
         expect(onChainPrice).to.be.equal(0);
 
-        await tickerPriceStorage.set(ethTickerSymbol, newPrice);
+        await tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice);
 
-        onChainPrice = await tickerPriceStorage.getCurrentPriceForTicker(ethTickerSymbol);
-        expect(onChainPrice).to.be.equal(newPrice);
+        onChainPrice = await tickerPriceStorage.getCurrentPriceForTicker(tokenTicker);
+        expect(onChainPrice).to.be.equal(tokenChainlinkPrice);
+      });
+
+      const TickerPriceUpdatedEventName = "TickerPriceUpdated";
+      it(`should emit the ${TickerPriceUpdatedEventName} event`, async () => {
+        const { tickerPriceStorage, tokens } = fixture;
+        const tokenTicker = tokens[0].tokenTicker
+        const tokenChainlinkPrice = tokens[0].tokenPrice;
+
+        await expect(tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice))
+          .to.emit(tickerPriceStorage, TickerPriceUpdatedEventName).withArgs(tokenTicker, tokenChainlinkPrice);
       });
     })
   })
