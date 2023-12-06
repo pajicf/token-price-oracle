@@ -59,7 +59,7 @@ describe("TickerPriceStorage", () => {
         const newPrice = currentPrice + minPriceDelta - 1;
 
         await expect(tickerPriceStorage.set(tokenTicker, newPrice))
-          .to.be.revertedWith("TickerPriceStorage: New price must be larger than the minimum delta");
+          .to.be.revertedWith("TickerPriceStorage: New price must be larger than the min delta");
       });
 
       it("should revert if trying to set price larger than the max price delta", async () => {
@@ -75,7 +75,7 @@ describe("TickerPriceStorage", () => {
         const newPrice = currentPrice + maxPriceDelta + 1;
 
         await expect(tickerPriceStorage.set(tokenTicker, newPrice))
-          .to.be.revertedWith("TickerPriceStorage: New price must be smaller than the maximum delta");
+          .to.be.revertedWith("TickerPriceStorage: New price must be smaller than the max delta");
       });
     });
 

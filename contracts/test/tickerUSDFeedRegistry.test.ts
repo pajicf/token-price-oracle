@@ -21,7 +21,7 @@ describe("TickerUSDFeedRegistry", () => {
       expect(owner.address).to.not.equal(otherAddress.address);
 
       await expect(tickerUSDFeedRegistry.connect(otherAddress).setTickerFeed(exampleTickerSymbol, exampleFeedAddress))
-        .to.be.revertedWith("TickerUSDFeedRegistry: Only owner is allowed to call this function");
+        .to.be.revertedWith("TickerUSDFeedRegistry: Only owner is allowed");
     });
 
     const TickerFeedUpdatedEventName = "TickerFeedUpdated";
