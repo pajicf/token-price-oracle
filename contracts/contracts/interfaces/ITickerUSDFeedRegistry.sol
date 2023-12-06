@@ -12,9 +12,9 @@ interface ITickerUSDFeedRegistry {
     *
     * @param ticker - The ticker symbol
     *
-    * @return Address of the Ticker<>USD Chainlink price feed
+    * @return feedAddress - Address of the Ticker<>USD Chainlink price feed
     */
-    function getTickerFeed(string calldata ticker) external view returns(address);
+    function getTickerFeed(string calldata ticker) external view returns(address feedAddress);
 
     /**
     * @notice Function for adding new ticker and its corresponding feed address to the registry

@@ -17,7 +17,7 @@ contract TickerUSDFeedRegistry is ITickerUSDFeedRegistry {
     }
 
     // @inheritdoc ITickerUSDFeedRegistry
-    function getTickerFeed(string calldata ticker) public view returns(address) {
+    function getTickerFeed(string calldata ticker) public view returns(address feedAddress) {
         return _tickerFeedMap[ticker];
     }
 

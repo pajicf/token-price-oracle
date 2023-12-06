@@ -8,6 +8,18 @@
 mapping(string => uint256) _tickerPriceMap
 ```
 
+### _tickerFeedRegistry
+
+```solidity
+address _tickerFeedRegistry
+```
+
+### constructor
+
+```solidity
+constructor(address tickerFeedRegistry) public
+```
+
 ### set
 
 ```solidity

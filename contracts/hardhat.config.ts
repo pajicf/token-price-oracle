@@ -29,7 +29,7 @@ const config: HardhatUserConfig = {
     templates: "./docs-generator-templates",
     outputDir: "./docs",
     pages: "files",
-    exclude: ["./test"]
+    exclude: ["./test", "./interfaces/IAggregatorV3Interface.sol"]
   },
 };
 
