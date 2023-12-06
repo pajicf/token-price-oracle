@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "../TickerPriceStorage.sol";
+import { TickerPriceStorage } from "../TickerPriceStorage.sol";
 
 contract TestTickerPriceStorage is TickerPriceStorage {
     constructor(address tickerFeedRegistry) TickerPriceStorage(tickerFeedRegistry) {

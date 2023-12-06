@@ -1,9 +1,9 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "./interfaces/ITickerPriceStorage.sol";
-import "./interfaces/ITickerUSDFeedRegistry.sol";
-import "./interfaces/IAggregatorV3Interface.sol";
+import { ITickerPriceStorage } from "./interfaces/ITickerPriceStorage.sol";
+import { ITickerUSDFeedRegistry } from "./interfaces/ITickerUSDFeedRegistry.sol";
+import { AggregatorV3Interface } from "./interfaces/IAggregatorV3Interface.sol";
 
 contract TickerPriceStorage is ITickerPriceStorage {
     uint private constant MAX_BPS = 10_000; // 100% or 10k basis points
@@ -35,7 +35,7 @@ contract TickerPriceStorage is ITickerPriceStorage {
                 priceDelta = currentPrice - price;
             }
             
-            require(priceDelta >= minPriceDelta, "TickerPriceStorage: New price must be larger than the minimum delta");
+            require(priceDelta >= minPriceDelta, "TickerPriceStorage: New price must be larger than the min delta");
         }
 
         uint chainlinkPrice = _getChainlinkPrice(ticker);
@@ -47,7 +47,7 @@ contract TickerPriceStorage is ITickerPriceStorage {
             priceDelta = chainlinkPrice - price;
         }
 
-        require(priceDelta <= maxPriceDelta, "TickerPriceStorage: New price must be smaller than the maximum delta");
+        require(priceDelta <= maxPriceDelta, "TickerPriceStorage: New price must be smaller than the max delta");
 
         _tickerPriceMap[ticker] = price;
         emit TickerPriceUpdated(ticker, price);

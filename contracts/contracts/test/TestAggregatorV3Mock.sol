@@ -1,17 +1,16 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.19;
 
-import "../interfaces/IAggregatorV3Interface.sol";
-import "../interfaces/IAggregatorV3Interface.sol";
+import { AggregatorV3Interface } from "../interfaces/IAggregatorV3Interface.sol";
 
 contract TestAggregatorV3Mock is AggregatorV3Interface {
-    int256 immutable internal _mockPrice;
-    uint8 internal MOCK_DECIMALS = 8;
-    string internal MOCK_DESCRIPTION = "";
-    uint256 internal MOCK_VERSION = 1;
+    int256 immutable internal MOCK_PRICE;
+    uint8 constant internal MOCK_DECIMALS = 8;
+    string constant internal MOCK_DESCRIPTION = "";
+    uint256 constant internal MOCK_VERSION = 1;
 
     constructor(int mockPrice) {
-        _mockPrice = mockPrice;
+        MOCK_PRICE = mockPrice;
     }
 
     function decimals() external view returns (uint8) {
@@ -32,7 +31,7 @@ contract TestAggregatorV3Mock is AggregatorV3Interface {
 
         return (
             mockRoundId,
-            _mockPrice,
+            MOCK_PRICE,
             block.timestamp - 1000,
             block.timestamp,
             mockRoundId - 1
