@@ -8,7 +8,8 @@
     "docs:generate": "hardhat docgen",
     "compile": "hardhat compile",
     "build": "yarn compile && yarn docs:generate",
-    "lint:ts": "tslint --project package.json"
+    "lint:ts": "tslint --project package.json",
+    "lint:ts:fix": "yarn lint:ts --fix"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",

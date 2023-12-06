@@ -18,7 +18,8 @@
     "prefer-for-of": false,
     "no-bitwise": false,
     "array-type": false,
-    "no-string-literal": true
+    "no-string-literal": true,
+    "no-unused-variable": true
   },
   "linterOptions": {
     "exclude": [

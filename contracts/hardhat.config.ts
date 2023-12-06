@@ -1,6 +1,6 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
-import 'solidity-docgen';
+import "solidity-docgen";
 
 const config: HardhatUserConfig = {
   /*

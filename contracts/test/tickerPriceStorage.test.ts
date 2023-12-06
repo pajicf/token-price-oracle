@@ -1,6 +1,6 @@
-import { loadFixture } from "@nomicfoundation/hardhat-network-helpers"
-import {TickerPriceStorageFixture, tickerPriceStorageFixture} from "./fixtures/tickerPriceStorage.fixture";
-import {expect} from "chai";
+import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
+import { TickerPriceStorageFixture, tickerPriceStorageFixture } from "./fixtures/tickerPriceStorage.fixture";
+import { expect } from "chai";
 
 describe("TickerPriceStorage", () => {
   let fixture: TickerPriceStorageFixture;
@@ -37,7 +37,7 @@ describe("TickerPriceStorage", () => {
 
       it("should revert if trying to set the current on-chain price", async () => {
         const { tickerPriceStorage, tokens } = fixture;
-        const tokenTicker = tokens[0].tokenTicker
+        const tokenTicker = tokens[0].tokenTicker;
         const tokenChainlinkPrice = tokens[0].tokenPrice;
 
         await tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice);
@@ -48,7 +48,7 @@ describe("TickerPriceStorage", () => {
 
       it("should revert if trying to set price smaller than the min price delta", async () => {
         const { tickerPriceStorage, tokens } = fixture;
-        const tokenTicker = tokens[0].tokenTicker
+        const tokenTicker = tokens[0].tokenTicker;
         const tokenChainlinkPrice = tokens[0].tokenPrice;
 
         await tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice);
@@ -64,7 +64,7 @@ describe("TickerPriceStorage", () => {
 
       it("should revert if trying to set price larger than the max price delta", async () => {
         const { tickerPriceStorage, tokens } = fixture;
-        const tokenTicker = tokens[0].tokenTicker
+        const tokenTicker = tokens[0].tokenTicker;
         const tokenChainlinkPrice = tokens[0].tokenPrice;
 
         await tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice);
@@ -77,12 +77,12 @@ describe("TickerPriceStorage", () => {
         await expect(tickerPriceStorage.set(tokenTicker, newPrice))
           .to.be.revertedWith("TickerPriceStorage: New price must be smaller than the maximum delta");
       });
-    })
+    });
 
     describe("Setting the initial price", () => {
       it("should be able to set a price without considering the min price delta", async () => {
         const { tickerPriceStorage, tokens } = fixture;
-        const tokenTicker = tokens[0].tokenTicker
+        const tokenTicker = tokens[0].tokenTicker;
         const tokenChainlinkPrice = tokens[0].tokenPrice;
 
         let onChainPrice = await tickerPriceStorage.getCurrentPriceForTicker(tokenTicker);
@@ -97,12 +97,12 @@ describe("TickerPriceStorage", () => {
       const TickerPriceUpdatedEventName = "TickerPriceUpdated";
       it(`should emit the ${TickerPriceUpdatedEventName} event`, async () => {
         const { tickerPriceStorage, tokens } = fixture;
-        const tokenTicker = tokens[0].tokenTicker
+        const tokenTicker = tokens[0].tokenTicker;
         const tokenChainlinkPrice = tokens[0].tokenPrice;
 
         await expect(tickerPriceStorage.set(tokenTicker, tokenChainlinkPrice))
           .to.emit(tickerPriceStorage, TickerPriceUpdatedEventName).withArgs(tokenTicker, tokenChainlinkPrice);
       });
-    })
-  })
-})
+    });
+  });
+});
