@@ -5,7 +5,7 @@ import "../interfaces/IAggregatorV3Interface.sol";
 import "../interfaces/IAggregatorV3Interface.sol";
 
 contract TestAggregatorV3Mock is AggregatorV3Interface {
-    int immutable internal _mockPrice;
+    int256 immutable internal _mockPrice;
     uint8 internal MOCK_DECIMALS = 8;
     string internal MOCK_DESCRIPTION = "";
     uint256 internal MOCK_VERSION = 1;
