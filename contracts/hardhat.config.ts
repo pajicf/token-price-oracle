@@ -30,7 +30,7 @@ const config: HardhatUserConfig = {
   },
   docgen: {
     templates: "./docs-generator-templates",
-    outputDir: "./docs",
+    outputDir: "./docs/api",
     pages: "files",
     exclude: ["./test", "./interfaces/IAggregatorV3Interface.sol"]
   },
