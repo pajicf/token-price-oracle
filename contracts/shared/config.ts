@@ -15,7 +15,7 @@ if (!DEPLOYER_PRIVATE_KEY) {
 }
 
 if (!ETHEREUM_GOERLI_RPC || !ETHEREUM_SEPOLICA_RPC) {
-  throw new Error("Please provide the RPC urls in the .env")
+  throw new Error("Please provide the RPC urls in the .env");
 }
 
 const CONFIG = {
