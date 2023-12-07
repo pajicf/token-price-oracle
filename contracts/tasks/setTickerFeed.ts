@@ -1,13 +1,13 @@
-import {EthereumAddress} from "../shared/types";
-import {ActionType} from "hardhat/types";
-import {TickerUSDFeedRegistry} from "../typechain-types";
-import {isLocalEnvironment} from "../shared/util";
+import { EthereumAddress } from "../shared/types";
+import { ActionType } from "hardhat/types";
+import { TickerUSDFeedRegistry } from "../typechain-types";
+import { isLocalEnvironment } from "../shared/util";
 
 type SetTickerFeedArguments = {
   ticker: string;
   feedAddress: EthereumAddress;
   registryContractAddress: EthereumAddress;
-}
+};
 
 const setTickerFeed: ActionType<SetTickerFeedArguments> = async (taskArgs, hre) => {
   const ethers = hre.ethers;
@@ -23,10 +23,10 @@ const setTickerFeed: ActionType<SetTickerFeedArguments> = async (taskArgs, hre) 
   console.log(`Transaction sent, tx hash: ${tx.hash}`);
 
   const numberOfConfirmationsToWait = isLocalEnvironment(hre.network.name) ? 0 : 3;
-  console.log(`Waiting for ${numberOfConfirmationsToWait} confirmations`)
+  console.log(`Waiting for ${numberOfConfirmationsToWait} confirmations`);
   await tx.wait(numberOfConfirmationsToWait);
 
   console.log("Transaction successful");
-}
+};
 
 export default setTickerFeed;
