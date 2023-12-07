@@ -1,5 +1,6 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
+import "@nomicfoundation/hardhat-ignition";
 import "solidity-docgen";
 
 const config: HardhatUserConfig = {
@@ -30,7 +31,7 @@ const config: HardhatUserConfig = {
     outputDir: "./docs",
     pages: "files",
     exclude: ["./test", "./interfaces/IAggregatorV3Interface.sol"]
-  },
+  }
 };
 
 export default config;
