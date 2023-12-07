@@ -1,6 +1,8 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
+import "@nomicfoundation/hardhat-ignition";
 import "solidity-docgen";
+import CONFIG from "./shared/config";
 
 const config: HardhatUserConfig = {
   /*
@@ -31,6 +33,19 @@ const config: HardhatUserConfig = {
     pages: "files",
     exclude: ["./test", "./interfaces/IAggregatorV3Interface.sol"]
   },
+  etherscan: {
+    apiKey: CONFIG.ETHERSCAN_API_KEY
+  },
+  networks: {
+    goerli: {
+      url: CONFIG.ETHEREUM_GOERLI_RPC,
+      accounts: [CONFIG.DEPLOYER_PRIVATE_KEY]
+    },
+    sepolia: {
+      url: CONFIG.ETHEREUM_SEPOLICA_RPC,
+      accounts: [CONFIG.DEPLOYER_PRIVATE_KEY]
+    }
+  }
 };
 
 export default config;

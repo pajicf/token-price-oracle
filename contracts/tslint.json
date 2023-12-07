@@ -19,7 +19,8 @@
     "no-bitwise": false,
     "array-type": false,
     "no-string-literal": true,
-    "no-unused-variable": true
+    "no-unused-variable": true,
+    "no-shadowed-variable": false
   },
   "linterOptions": {
     "exclude": [
