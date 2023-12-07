@@ -2,6 +2,7 @@ import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import "@nomicfoundation/hardhat-ignition";
 import "solidity-docgen";
+import "./tasks"
 import CONFIG from "./shared/config";
 
 const config: HardhatUserConfig = {
