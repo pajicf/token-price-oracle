@@ -1,3 +1,5 @@
+# Ticker USD Feed Registry
+
 ## Setting a new feed address
 ```mermaid
     sequenceDiagram
