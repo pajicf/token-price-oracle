@@ -11,7 +11,9 @@
     "lint:ts": "tslint --project package.json",
     "lint:ts:fix": "yarn lint:ts --fix",
     "lint:sol": "solhint 'contracts/**/*.sol'",
-    "lint": "yarn lint:ts && yarn lint:sol"
+    "lint": "yarn lint:ts && yarn lint:sol",
+    "contracts:set-ticker-price": "yarn hardhat setTickerPrice",
+    "contracts:set-ticker-feed": "yarn hardhat setTickerFeed"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
