@@ -21,6 +21,10 @@ To run the project, you'll need:
 - Compile: ```yarn compile```
 - Tests: ```yarn test```
 
+#### Contracts CLI
+- Set a new price for a ticker: ```yarn contracts:set-ticker-price```
+- Set a new feed for a ticker: ```yarn contracts:set-ticker-feed```
+
 #### Miscellanious
 - Project linting: ```yarn lint```
 - Documentation generation: ```yarn docs:generate```
