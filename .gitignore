@@ -6,11 +6,11 @@
 node_modules/
 
 # Hardhat / Solidity
-contracts/cache
-contracts/artifacts
-contracts/coverage
-contracts/coverage.json
-contracts/typechain
-contracts/typechain-types
-contracts/ignition/deployments/**/build-info
-contracts/ignition/deployments/**/artifacts/*.dbg.json
+/cache
+/artifacts
+/coverage
+/coverage.json
+/typechain
+/typechain-types
+/ignition/deployments/**/build-info
+/ignition/deployments/**/artifacts/*.dbg.json

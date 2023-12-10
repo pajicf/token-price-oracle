@@ -69,5 +69,9 @@ jobs:
           path: node_modules
           key: node_modules-${{ hashFiles('**/yarn.lock') }}
 
+      - name: Create mock .env file
+        run: |
+          cp .env.test .env
+
       - name: All Tests pass
         run: yarn test
